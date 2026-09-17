@@ -186,18 +186,6 @@
           "code": "bumpAuto",
           "formResetBehavior": "reset",
           "defaultValue": false
-        },
-        {
-          "title": "Amount of Full Hoppers (Tenths)",
-          "description": "How much fuel the robot held compared to the total possible fuel it can hold.",
-          "type": "counter",
-          "required": false,
-          "code": "hopcapAuto",
-          "formResetBehavior": "reset",
-          "defaultValue": 0,
-          "min": 0,
-          "max": 20,
-          "step": 1
         }
       ]
     },
@@ -226,30 +214,6 @@
           "defaultValue": 0,
           "min": 0,
           "max": 1000,
-          "step": 1
-        },
-        {
-          "title": "Number of Full Hoppers",
-          "description": "Count number of full hoppers the robot scored into the hub.",
-          "type": "counter",
-          "required": false,
-          "code": "numCycles",
-          "formResetBehavior": "reset",
-          "defaultValue": 0,
-          "min": 0,
-          "max": 1000,
-          "step": 1
-        },
-        {
-          "title": "Partial of a Full Hopper (Tenths)",
-          "description": "More descriptive count of full hopper count. Measured in tenths.",
-          "type": "range",
-          "required": false,
-          "code": "cycles",
-          "formResetBehavior": "reset",
-          "defaultValue": 0,
-          "min": 0,
-          "max": 9,
           "step": 1
         }
       ]
