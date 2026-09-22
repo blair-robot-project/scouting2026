@@ -220,22 +220,12 @@ ui <- navbarPage(
                          )
                      ),
                      div(class = "col-12 col-lg-9",
-                         div(class = "row",
-                             div(class = "col-lg-6",
-                                 card(
-                                     class = "graph-card",
-                                     card_header("Summary Fuel Points"),
-                                     plotOutput("summary_point_comp") |> 
-                                         withSpinner()
-                                 )
-                             ),
-                             div(class = "col-lg-6",
-                                 card(
-                                     class = "graph-card",
-                                     card_header("Trench Bump Ratioplot"),
-                                     plotOutput("trench_bump_comp") |> 
-                                         withSpinner()
-                                 )
+                         div(class = "col-lg-12",
+                             card(
+                                 class = "graph-card",
+                                 card_header("Summary Fuel Points"),
+                                 plotOutput("summary_point_comp") |> 
+                                     withSpinner()
                              )
                          ),
                          div(class = "row",
@@ -270,6 +260,14 @@ ui <- navbarPage(
                                      card_header("Problems Encountered"),
                                      plotOutput("problem_type_comp")|>withSpinner()
                                  )
+                             )
+                         ),
+                         div(class = "col-lg-12",
+                             card(
+                                 class = "graph-card",
+                                 card_header("Trench Bump Values"),
+                                 uiOutput("trench_bump_comp") |> 
+                                     withSpinner()
                              )
                          ),
                          card(
@@ -330,22 +328,12 @@ ui <- navbarPage(
                          )
                      ),
                      div(class = "col-12 col-lg-9",
-                         div(class = "row",
-                             div(class = "col-lg-6",
-                                 card(
-                                     class = "graph-card",
-                                     card_header("Summary Fuel Points"),
-                                     plotOutput("summary_point_match") |> 
-                                         withSpinner()
-                                 )
-                             ),
-                             div(class = "col-lg-6",
-                                 card(
-                                     class = "graph-card",
-                                     card_header("Trench Bump Ratioplot"),
-                                     plotOutput("trench_bump_match") |> 
-                                         withSpinner()
-                                 )
+                         div(class = "col-lg-12",
+                             card(
+                                 class = "graph-card",
+                                 card_header("Summary Fuel Points"),
+                                 plotOutput("summary_point_match") |> 
+                                     withSpinner()
                              )
                          ),
                          div(class = "row",
@@ -382,6 +370,14 @@ ui <- navbarPage(
                                      plotOutput("problem_type_match") |> 
                                          withSpinner()
                                  )
+                             )
+                         ),
+                         div(class = "col-lg-12",
+                             card(
+                                 class = "graph-card",
+                                 card_header("Trench Bump Values"),
+                                 uiOutput("trench_bump_match") |> 
+                                     withSpinner()
                              )
                          ),
                          card(

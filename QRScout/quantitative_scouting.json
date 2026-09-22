@@ -132,15 +132,15 @@
             "5115": "5115",
             "5243": "5243",
             "5338": "5338",
+            "5353": "5353",
             "5549": "5549",
             "5587": "5587",
             "5830": "5830",
             "8230": "8230",
             "9033": "9033",
             "9072": "9072",
-            "9072b": "9072b",
-            "11415": "11415", 
-            "5353": "5353"
+            "11415": "11415",
+            "9072b": "9072b"
           }
         },
         {
@@ -195,38 +195,18 @@
         {
           "title": "Trench",
           "description": "Count how many times the robot went under the trench.",
-          "type": "counter",
+          "type": "boolean",
           "required": false,
           "code": "trenchTele",
           "formResetBehavior": "reset",
-          "defaultValue": 0,
-          "min": 0,
-          "max": 1000,
-          "step": 1
+          "defaultValue": false
         },
         {
           "title": "Bump",
           "description": "Count how many times the robot went over the bump.",
-          "type": "counter",
-          "required": false,
-          "code": "bumpTele",
-          "formResetBehavior": "reset",
-          "defaultValue": 0,
-          "min": 0,
-          "max": 1000,
-          "step": 1
-        }
-      ]
-    },
-    {
-      "name": "Endgame",
-      "fields": [
-          {
-          "title": "Climb <5 sec",
-          "description": "Check if the robot climbed in less than five seconds.",
           "type": "boolean",
           "required": false,
-          "code": "climbTime",
+          "code": "bumpTele",
           "formResetBehavior": "reset",
           "defaultValue": false
         }

@@ -42,6 +42,18 @@ bump_trench_ratioplot <- function(raw, team_list, alliance_color = FALSE){
         theme_bw()
 }
 
+valueBox <- function(title, value) {
+    div(
+        class = "col-md-4",
+        value_box(
+            title = title,
+            value = value,
+            showcase = NULL,
+            theme = "danger"
+        )
+    )
+}
+
 plot_driver_rating_graph <- function(
     dataframe, team_id, alliance_color = FALSE
 ) {
@@ -394,7 +406,6 @@ plot_scouting_graph <- function(raw) {
     scout <- raw$scout
     scout_count <- count(raw, scout, sort = TRUE, name = "number_of_times")|>
         mutate(percentile = percent_rank(number_of_times))
-    
     still_graph <- ggplot(scout_count, aes(
         text = paste("Scout:", scout, "|| Count:", number_of_times),
         x = reorder(scout, number_of_times, decreasing = TRUE),
@@ -423,8 +434,7 @@ stacked_bar_chart <- function(
     order = TRUE, flip = TRUE, alliance_color = FALSE
 ){
     data <- summary_stats(raw, pridge, teams = NULL, metric = metric) |>
-        select(Team, `Auto Fuel`, `Tele Fuel`, `ACP`, Climb, `Total Score`) |>
-        rename(`Auto Climb` = ACP) |>
+        select(Team, `Auto Fuel`, `Tele Fuel`, `Total Score`) |>
         filter(Team %in% teams)
     
     if (order) {
@@ -435,7 +445,7 @@ stacked_bar_chart <- function(
     
     data <- pivot_longer(
         data,
-        cols = c('Auto Fuel', 'Tele Fuel', 'Auto Climb', 'Climb'),
+        cols = c('Auto Fuel', 'Tele Fuel'),
         names_to = 'Score Type',
         values_to = 'score',
     )
@@ -443,19 +453,17 @@ stacked_bar_chart <- function(
     data$Team <- factor(data$Team, levels = team_order, ordered = TRUE)
     data$`Score Type` <- factor(
         data$`Score Type`, 
-        c("Auto Fuel", "Auto Climb", "Tele Fuel", "Climb"), 
+        c("Auto Fuel","Tele Fuel"), 
         ordered = TRUE)
     
     ggplot(data, aes(x = Team, y = score, fill = `Score Type`)) +
         geom_bar(stat = "identity") + 
         labs(
-            title = "Stacked Bar Chart", x = "Team", y = "Climb + Metric Score"
+            title = "Stacked Bar Chart", x = "Team", y = "Metric Score"
         ) + 
         scale_fill_manual(
             values = c("Auto Fuel" ="#6B705C", 
-                       "Auto Climb" = "#A5A58D",
-                       "Tele Fuel" = "#B7B7A4",
-                       "Climb" = "#DDBEA9"
+                       "Tele Fuel" = "#B7B7A4"
             ) 
         ) +
         theme_bw() +
@@ -488,22 +496,10 @@ summary_stats <- function(raw, pridge, teams = NULL, metric = "pridge") {
         group_by(team) |>
         summarise(
             `Matches Played` = n(),
-            Climb = mean(
-                ifelse(endgame_climb == "L1", 10, 
-                       ifelse(endgame_climb == "L2", 20, 
-                              ifelse(endgame_climb == "L3", 30, 0)))),
-            ACP = mean(auto_climb * 15, na.rm = TRUE),
-            `Auto Cycles` = mean(auto_cycles / 10, na.rm = TRUE),
-            `Tele Cycles` = mean(
-                num_cycles + num_cycles_tenths / 10, 
-                na.rm = TRUE),
-            `Total Cycles` = `Auto Cycles` + `Tele Cycles`,
             `Auto Bump` = sum(as.logical(auto_bump), na.rm = TRUE),
-            `Tele Trench` = mean(teleop_trench, na.rm = TRUE),
-            `Tele Bump` = mean(teleop_bump, na.rm = TRUE),
-            `Auto Climb` = sum(auto_climb, na.rm = TRUE),
+            `Tele Trench` = sum(as.logical(teleop_trench), na.rm = TRUE),
+            `Tele Bump` = sum(as.logical(teleop_bump), na.rm = TRUE),
             Driver = mean(driver_rating, na.rm = TRUE),
-            `Quick Climb` = sum(climb_less_than_5, na.rm = TRUE),
             Died = sum(grep("1", problems), na.rm = TRUE),
             Card = sum(card != 'No Card', na.rm = TRUE)
         ) |>
@@ -526,15 +522,14 @@ summary_stats <- function(raw, pridge, teams = NULL, metric = "pridge") {
     result <- result |>
         mutate(
             `Total Fuel` = `Auto Fuel` + `Tele Fuel`,
-            `Total Score` = `Auto Fuel` + `Tele Fuel` + ACP + Climb
+            `Total Score` = `Auto Fuel` + `Tele Fuel`
         )
 
     result <- result|>
         select(
-            Team = team, `Auto Fuel`, `Tele Fuel`, `Total Fuel`, `Total Score`,
-            `Auto Cycles`, `Tele Cycles`, `Total Cycles`, `Auto Bump`,
-            `Tele Bump`, `Tele Trench`, `Auto Climb`, Climb, `Quick Climb`, 
-            Driver, Died, Card, `Matches Played`, ACP) |>
+            Team = team, `Auto Fuel`, `Tele Fuel`, `Total Fuel`, `Total Score`, 
+            `Auto Bump`, `Tele Bump`, `Tele Trench`, Driver, Died, Card, 
+            `Matches Played`) |>
         modify_if(~is.numeric(.), ~round(., 2))
     
     result <- result[order(match(result$Team, teams)), ]
@@ -898,14 +893,19 @@ problems_graph <- function(raw, teams, alliance_color = FALSE) {
 auto_type_graph <- function(raw, order, teams, flip, alliance_color = FALSE) {
     auto_type_data <- raw |>
         filter(team %in% teams) |>
+        separate_rows(auto_type, sep = ",") |>
         mutate(
             auto_type = factor(
-                auto_type, 
-                ordered = TRUE, 
-                levels = c("1", "2", "3", "4", "5", "6")))|>
+                auto_type,
+                levels = c("1", "2", "3", "4", "5", "6"),
+                ordered = TRUE
+            )
+        ) |>
+        filter(!is.na(auto_type)) |>
         group_by(team, auto_type) |>
         summarise(
-            auto_type_numbers = n()
+            auto_type_numbers = n(),
+            .groups = "drop"
         )
     
     team_order <- teams

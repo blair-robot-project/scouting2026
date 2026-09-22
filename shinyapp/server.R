@@ -20,11 +20,8 @@ library(colourpicker)
 default_linear_weights <- data.frame(
     Team = 0,
     `Auto Fuel` = 1, `Tele Fuel` = 1, `Total Fuel` = 1, `Total Score` = 0,
-    `Auto Cycles` = 0, `Tele Cycles` = 0, `Total Cycles` = 0,
-    `Auto Bump` = 10, `Tele Bump` = 10, `Tele Trench` = 5, 
-    `Auto Climb` = 15, Climb = 15, `Quick Climb` = 15,
-    Driver = 10, `Solo Shot` = 0, Died = 0, Card = -20, `Matches Played` = 0,
-    `ACP` = 0
+    `Auto Bump` = 10, `Tele Bump` = 10, `Tele Trench` = 5,
+    Driver = 10, Died = 0, Card = -20, `Matches Played` = 0
 ) #temp, remove later
 
 addResourcePath("images_d", "data/gal/images")
@@ -55,7 +52,7 @@ server <- function(input, output, session) {
         removeResourcePath("images_d")
         addResourcePath("images_d", paste0("data/", event, "/images"))
     }
-    load_event_data("gal")
+    load_event_data("test_data")
     
     #UPDATE PICKERS
     observe({
@@ -147,12 +144,12 @@ server <- function(input, output, session) {
         teams <- unique(raw()$team)
         stacked_bar_chart(raw(), schedule(), pridge(), teams, metric_selected())
     })
-    
+
     output$event_summary_display <- renderPlot({
         teams <- unique(raw()$team)
         stacked_bar_chart(raw(), schedule(), pridge(), teams, metric_selected())
     })
-    
+
     output$summary_stats <- renderDT({
         dataframe <- summary_stats(raw(), pridge(), metric = metric_selected())
         datatable(
@@ -195,15 +192,15 @@ server <- function(input, output, session) {
         data <- summary_stats(raw(), pridge(), metric = metric_selected())
         team_scores <- calculate_team_scores(weights(), data)
         team_scores$Rank <- 1:nrow(team_scores)
-        
+
         #reorder columns to show rank and score first
         cols_order <- c("Rank", "Team", "Team Score")
         remaining_cols <- setdiff(names(team_scores), cols_order)
         team_scores <- team_scores[, c(cols_order, remaining_cols)]
-        
+
         #datatable
         datatable(
-            team_scores, 
+            team_scores,
             options = list(
                 pageLength = length(team_scores$Team),
                 dom = 'ftip',
@@ -216,15 +213,15 @@ server <- function(input, output, session) {
                     c(0, max(team_scores$`Team Score`)), 'lightblue'),
                 backgroundSize = '100% 90%',
                 backgroundRepeat = 'no-repeat',
-                backgroundPosition = 'center')    
-    }) 
+                backgroundPosition = 'center')
+    })
     
     #COMPARE POINT SUMMARY
     output$summary_point_comp <- renderPlot({
         req(input$selected_teams_comp)
         stacked_bar_chart(
-            raw(), schedule(), pridge(), teams_selected(), metric_selected(), 
-            order = FALSE, flip = FALSE)
+            raw(), schedule(), pridge(), teams_selected(), metric_selected(),
+            order = FALSE, flip = TRUE)
     })
     
     #COMPARE ENDGAME BAR
@@ -232,29 +229,55 @@ server <- function(input, output, session) {
         req(input$selected_teams_comp)
         endgame_graph(raw(), teams_selected())
     })
-    
-    #COMPARE DRIVER RATING
+
+    # #COMPARE DRIVER RATING
     output$driver_rating_comp <- renderPlot({
         req(input$selected_teams_comp)
         plot_driver_rating_graph(raw(), teams_selected())
     })
-    
+
     # COMPARE INACTIVE STRATEGY
     output$inactive_strategy_comp <- renderPlot({
         req(input$selected_teams_comp)
         inactive_stategy_summary(raw(), teams_selected())
     })
-    
+
     # COMPARE PROBLEM TYPE
     output$problem_type_comp <- renderPlot({
         req(input$selected_teams_comp)
         problems_graph(raw(), teams_selected())
     })
     
-    #COMPARE TRENCH BUMP
-    output$trench_bump_comp <- renderPlot({
+    output$trench_bump_comp <- renderUI({
         req(input$selected_teams_comp)
-        bump_trench_ratioplot(raw(), teams_selected())
+        
+        data <- raw() |>
+            filter(team %in% teams_selected())
+        
+        tagList(
+            lapply(teams_selected(), function(team_num) {
+                
+                team_data <- data |>
+                    filter(team == team_num)
+                
+                total <- nrow(team_data)
+                
+                if (total == 0) return(NULL)
+                
+                bump <- mean(team_data$teleop_bump, na.rm = TRUE) * 100
+                trench <- mean(team_data$teleop_trench, na.rm = TRUE) * 100
+                auto_bump <- mean(team_data$auto_bump, na.rm = TRUE) * 100
+                
+                tagList(
+                    h4(paste("Team", team_num)),
+                    fluidRow(
+                        valueBox("Teleop Bump", paste0(round(bump), "%")),
+                        valueBox("Teleop Trench", paste0(round(trench), "%")),
+                        valueBox("Auto Bump", paste0(round(auto_bump), "%"))
+                    )
+                )
+            })
+        )
     })
     
     # COMPARE AUTO TYPE
@@ -262,7 +285,7 @@ server <- function(input, output, session) {
         req(input$selected_teams_comp)
         auto_type_graph(raw(), FALSE, teams_selected())
     })
-    
+
     output$comments_df_comp <- renderDT({
         req(input$selected_teams_comp)
         if (user_logged_in()){
@@ -272,20 +295,20 @@ server <- function(input, output, session) {
                 Message ="Please Login in the Settings Tab to access comments!"
             )
         }
-        
+
         datatable(
             df,
             options = list(
-                dom = 't', 
+                dom = 't',
                 pageLength = nrow(df)
             )
         )
     })
-    
+
     #SCORE PREDICTION
     output$score_prediction <- renderText({
-        req(isTruthy(input$selected_match) || 
-                isTruthy(input$selected_red) || 
+        req(isTruthy(input$selected_match) ||
+                isTruthy(input$selected_red) ||
                 isTruthy(input$selected_blue))
         data <- summary_stat()
         score_pred(data, teams_selected()[1:3], teams_selected()[4:6])
@@ -293,73 +316,102 @@ server <- function(input, output, session) {
     
     #SUMMARY POINT MATCH
     output$summary_point_match <- renderPlot({
-        req(isTruthy(input$selected_match) || 
-                isTruthy(input$selected_red) || 
+        req(isTruthy(input$selected_match) ||
+                isTruthy(input$selected_red) ||
                 isTruthy(input$selected_blue))
         stacked_bar_chart(
-            raw(), schedule(), pridge(), teams_selected(), metric_selected(), 
-            order = FALSE, flip = FALSE, alliance_color = TRUE)
+            raw(), schedule(), pridge(), teams_selected(), metric_selected(),
+            order = FALSE, flip = TRUE, alliance_color = TRUE)
     })
-    
+
     output$summary_stats_comp <- renderDT({
         req(input$selected_teams_comp)
         summary_stats(raw(), pridge(), teams_selected(), metric_selected())
     })
-    
+
     output$end_bar_match <- renderPlot({
-        req(isTruthy(input$selected_match) || 
-                isTruthy(input$selected_red) || 
+        req(isTruthy(input$selected_match) ||
+                isTruthy(input$selected_red) ||
                 isTruthy(input$selected_blue))
         endgame_graph(raw(), teams_selected(), alliance_color = TRUE)
     })
     
-    output$trench_bump_match <- renderPlot({
-        req(isTruthy(input$selected_match) || 
-                isTruthy(input$selected_red) || 
-                isTruthy(input$selected_blue))
-        bump_trench_ratioplot(raw(), teams_selected(), alliance_color = TRUE)
+    output$trench_bump_match <- renderUI({
+        req(
+            isTruthy(input$selected_match) ||
+                isTruthy(input$selected_red) ||
+                isTruthy(input$selected_blue)
+        )
+        
+        data <- raw() |>
+            filter(team %in% teams_selected())
+        
+        tagList(
+            lapply(teams_selected(), function(team_num) {
+                
+                team_data <- data |>
+                    filter(team == team_num)
+                
+                total <- nrow(team_data)
+                
+                if (total == 0) return(NULL)
+                
+                bump <- mean(team_data$teleop_bump, na.rm = TRUE) * 100
+                trench <- mean(team_data$teleop_trench, na.rm = TRUE) * 100
+                auto_bump <- mean(team_data$auto_bump, na.rm = TRUE) * 100
+                
+                tagList(
+                    h4(paste("Team", team_num)),
+                    fluidRow(
+                        valueBox("Teleop Bump", paste0(round(bump), "%")),
+                        valueBox("Teleop Trench", paste0(round(trench), "%")),
+                        valueBox("Auto Bump", paste0(round(auto_bump), "%"))
+                    )
+                )
+            })
+        )
     })
-    
+
     output$driver_rating_match <- renderPlot({
-        req(isTruthy(input$selected_match) || 
-                isTruthy(input$selected_red) || 
+        req(isTruthy(input$selected_match) ||
+                isTruthy(input$selected_red) ||
                 isTruthy(input$selected_blue))
         driver_rating_match(raw(), teams_selected())
     })
-    
+
     output$inactive_strategy_match <- renderPlot({
-        req(isTruthy(input$selected_match) || 
-                isTruthy(input$selected_red) || 
+        req(isTruthy(input$selected_match) ||
+                isTruthy(input$selected_red) ||
                 isTruthy(input$selected_blue))
         inactive_stategy_summary(raw(), teams_selected(), alliance_color = TRUE)
     })
-    
+
     output$problem_type_match <- renderPlot({
-        req(isTruthy(input$selected_match) || 
-                isTruthy(input$selected_red) || 
+        req(isTruthy(input$selected_match) ||
+                isTruthy(input$selected_red) ||
                 isTruthy(input$selected_blue))
         problems_graph(raw(), teams_selected(), TRUE)
     })
-    
+
     output$auto_type_match <- renderPlot({
-        req(isTruthy(input$selected_match) || 
-                isTruthy(input$selected_red) || 
+        req(isTruthy(input$selected_match) ||
+                isTruthy(input$selected_red) ||
                 isTruthy(input$selected_blue))
         auto_type_graph(
-            raw(), teams_selected(), 
+            raw(), teams_selected(),
             flip = FALSE, order = FALSE, alliance_color = TRUE)
     })
-    
+
     output$summary_stats_match <- renderDT({
-        req(isTruthy(input$selected_match) || 
-                isTruthy(input$selected_red) || 
+        req(isTruthy(input$selected_match) ||
+                isTruthy(input$selected_red) ||
                 isTruthy(input$selected_blue))
         summary_stat()
     })
     
     output$comments_df_match <- renderDT({
-        req(isTruthy(input$selected_match) || 
-                isTruthy(input$selected_red) || 
+        req(isTruthy(input$selected_match) ||
+                isTruthy(input$selected_red) ||
                 isTruthy(input$selected_blue))
         if (user_logged_in()){
             df <- comments_df(raw(), teams_selected())
@@ -368,22 +420,22 @@ server <- function(input, output, session) {
                 Message ="Please Login in the Settings Tab to access comments!"
             )
         }
-        
+
         datatable(
             df,
             options = list(
-                dom = 't', 
+                dom = 't',
                 pageLength = nrow(df)
             )
         )
     })
-    
+
     output$qual_radar_chart <- renderPlot({
         req(isTruthy(input$selected_teams_qual))
         par(mar = c(1, 1, 1, 1))
         radar_qual_graph(qual_data(), input$selected_teams_qual)
     })
-    
+
     output$qual_comments_ui <- renderUI({
         teams <- input$selected_teams_qual
         if (length(teams) == 0){
@@ -402,7 +454,7 @@ server <- function(input, output, session) {
                        )
             ))
         }
-        
+
         tagList(
             lapply(seq_along(teams), function(i) {
                 team <- teams[i]
@@ -425,16 +477,16 @@ server <- function(input, output, session) {
             })
         )
     })
-    
+
     observe({
         req(input$selected_teams_qual)
         teams <- input$selected_teams_qual
-        
+
         for (i in seq_along(teams)) {
             local({
                 idx <- i
                 team <- teams[idx]
-                
+
                 output[[paste0("match_comments_qual_", idx)]] <- renderDT({
                     if (user_logged_in()) {
                         data <- match_comments(qual_data(), team)
@@ -444,11 +496,11 @@ server <- function(input, output, session) {
                                 "Please Login in the Settings Tab to access ",
                                 "comments!"
                                 )
-                        ) 
+                        )
                     }
                     datatable(data, rownames = FALSE)
                 })
-                
+
                 output[[paste0("general_comments_qual_", idx)]] <- renderDT({
                     if (user_logged_in()) {
                         data <- general_comments(qual_data(), team)
@@ -458,22 +510,22 @@ server <- function(input, output, session) {
                                 "Please Login in the Settings Tab to access ",
                                 "comments!"
                             )
-                        ) 
+                        )
                     }
                     datatable(data, rownames = FALSE)
                 })
             })
         }
     })
-    
+
     output$matches_scouted <- renderPlotly({
         plot_scouting_graph(raw())
     })
-    
+
     output$scout_yaps <- renderPlotly({
         yap_graph(raw())
     })
-    
+
     output$scouter_streak <- renderPlotly({
         high_streak(raw())
     })
