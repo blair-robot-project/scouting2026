@@ -40,7 +40,7 @@ server <- function(input, output, session) {
     teams_selected <- reactiveVal(NULL)
     summary_stat <- reactiveVal(NULL)
     metric_selected <- reactiveVal("pRidge")
-    event_selected <- reactiveVal("Galileo")
+    event_selected <- reactiveVal("CRI")
     
     user_logged_in <- reactiveVal(rstudioapi::isAvailable())
     correct_password = "0322"
@@ -55,7 +55,7 @@ server <- function(input, output, session) {
         removeResourcePath("images_d")
         addResourcePath("images_d", paste0("data/", event, "/images"))
     }
-    load_event_data("gal")
+    load_event_data("vaale1")
     
     #UPDATE PICKERS
     observe({
@@ -81,6 +81,7 @@ server <- function(input, output, session) {
         joh = "Johnson",
         mil = "Milstein",
         new = "Newton", 
+        vaale1 - "CRI",
         all_data = "All Data"
     )
     
