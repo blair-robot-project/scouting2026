@@ -1,0 +1,103 @@
+scout,match,robot,team,start_pos,auto_type,auto_bump,teleop_trench,teleop_bump,inactive_strat,driver_rating,problems,card,comments
+MH,1,R1,1731,C,5,FALSE,TRUE,TRUE,1,1,"3,2",No Card,drum shooter
+MH,1,R2,2537,F,1,FALSE,FALSE,TRUE,,3,6,No Card,low-key bummed
+MH,1,R1,11415,M,,FALSE,TRUE,TRUE,"2,3",3,,No Card,
+DK,1,B3,623,F,,FALSE,TRUE,TRUE,6,3,,No Card,"Dropped balls a lot, half-hopper syndrome"
+MC,1,B2,5115,C,3,FALSE,TRUE,TRUE,"3,5,6",4,,No Card,Good at bulldozing
+BP,1,B1,9033,M,,FALSE,TRUE,FALSE,6,1,,No Card,"Did41391t move for a long time, struggled to trench, bubbled"
+MH,2,R1,1727,F,3,FALSE,TRUE,TRUE,"6,2",3,,No Card,"1ingle shooter, can outtake"
+MH,2,R2,5587,C,,FALSE,TRUE,FALSE,,2,,No Card,low-key did nothing the entire match
+RS,2,R1,5549,M,1,FALSE,TRUE,TRUE,"6,4",2,,No Card,Intake broke
+DK,2,B3,8230,C,,FALSE,TRUE,TRUE,"6,4",4,,No Card,Missed a lot of shots
+MC,2,B1,116,F,,FALSE,FALSE,TRUE,"2,6",4,,No Card,
+MC,2,B2,2199,M,,FALSE,TRUE,FALSE,2,3,,No Card,"Double turret is quite cooked, one side shoots the wrong way, indexer not working well "
+MH,3,R1,2421,M,,FALSE,TRUE,FALSE,"1,2,6",4,,No Card,like 2 bps but saved two team8s on the bump
+PREZ,3,B2,1599,F,,FALSE,TRUE,TRUE,,1,,No Card,Bumper Fell Off. Disabled. 
+NS,3,B1,686,C,3,FALSE,TRUE,FALSE,3,1,,No Card,"1.5 auto cycles, super slow? Scored a whole cycle inactive, could41391t use bump"
+DK,3,B3,5830,M,,FALSE,TRUE,TRUE,6,2,,No Card,"Could41391t collect much balls, missing lots of shots"
+CR,3,R1,614,C,6,TRUE,FALSE,TRUE,6,2,4,No Card,"1-2 second pause before auto, bad aim"
+AZ,3,R2,9999,F,"3,4",TRUE,TRUE,TRUE,3,3,,No Card,Robot got stuck was low throughput was not very good
+MH,4,R1,4099,,3,FALSE,TRUE,TRUE,"6,2,5",4,,No Card,Single shooter but decent bps (like 3.5)
+PREZ,4,B2,1915,M,,FALSE,FALSE,FALSE,5,1,1,No Card,Broke. Disabled. No scored. 
+HR,4,R2,4472,M,1,FALSE,TRUE,TRUE,2,3,,No Card,"Intake slow/failed, slow shooting, bulldozed for most of match"
+NS,4,R1,2106,C,"3,4",TRUE,TRUE,TRUE,1,2,,No Card,"Very solid auto, strafing, slight sotm, passing capabilities are limited,"
+DK,4,B3,5243,D,,FALSE,TRUE,FALSE,6,2,,No Card,"Did41391t shoot a lot, got stuck a lot by other robots in neutral zone, and did41391t collect much balls"
+DJ,4,B1,5338,M,"4,3",TRUE,TRUE,TRUE,,3,,No Card,
+MH,5,R1,449,C,,TRUE,TRUE,TRUE,,5,,No Card,goated
+JD,7,B1,9999,C,3,FALSE,TRUE,FALSE,6,3,4,No Card,
+CR,7,R1,116,F,,FALSE,FALSE,TRUE,"6,3",1,3,No Card,"Attempted to steal, but did41391t follow through. Random 2 second pauses"
+AZ,7,R1,5549,M,1,FALSE,TRUE,TRUE,,A,,No Card,"Broken intake, slap down gets jammed and ca41391t deploy due to fuel"
+DK,7,B3,4472,F,5,FALSE,TRUE,TRUE,5,2,,Do Card,"Stuck on bumps; collect little amount of balls, could rotate itself fluidluy"
+NHS,7,N1,614,C,6,FALSE,FALSE,TRUE,1,3,"2,3",No Card,Got stuck on fuel for most of match
+NS,7,B2,1731,M,,FALSE,TRUE,TRUE,6,2,,No Card,"Lowk bad at cycling auto was not good enough to play over 4472 and old 9072. Dilly dallied, a lot of. Lots of small mistakes, not unsticking teammate, trying to go under trench with bread extended"
+JD,8,B1,11415,F,,FALSE,TRUE,FALSE,6,3,,No Card,
+AZ,8,R1,2186,M,,FALSE,TRUE,FALSE,4,1,,No Card,"Poor driving, no shooting points contributed "
+DK,8,B3,9072,C,3,FALSE,TRUE,TRUE,5,5,,No Card,Very great intake and aim
+NS,8,B2,1915,,,FALSE,FALSE,FALSE,,1,,No Card,No show :(
+NHS,8,R1,5243,M,1,FALSE,TRUE,TRUE,M,2,2,No Card,Moved slowly. Got beached for a while. Not very active defense 
+CR,8,R1,623,F,,FALSE,FALSE,TRUE,"2,5",1,,No Card,"No auto, completely ignored beached teammate for 2 bulldozing cycles"
+NS,9,B3,620,M,,FALSE,TRUE,FALSE,,1,,No Card,Ultra dilly dally wtf
+NS,9,B2,2421,C,3,FALSE,TRUE,TRUE,,t,,No Card,"HHS, poor intake, trying to score"
+JD,9,B1,2199,F,5,FALSE,TRUE,FALSE,,1,,No Card,Did41391t move for a while
+AZ,9,R1,5587,F,1,FALSE,FALSE,FALSE,"1,2",1,,No Card,Terrible
+CR,9,R1,888,C,5,FALSE,TRUE,TRUE,,3,,No Card,"Bad aim, wasted like 15 seconds of inactive period"
+NHS,9,R1,2537,M,,FALSE,TRUE,FALSE,f,3,,No Card,Input broke. Mostly inactive 
+AZ,10,R1,4099,F,,FALSE,TRUE,FALSE,f,3,,No Card,
+JD,10,B1,1599,M,,FALSE,TRUE,TRUE,4,4,,No Card,
+NS,10,B3,5115,C,3,FALSE,FALSE,FALSE,,1,,No Card,"Browned off rip, stuck on bumps, cycles rlly poorly, super inconsistent "
+MH,10,B2,422,F,5,FALSE,TRUE,FALSE,2,1,"6,7",No Card,"Intake broken for the first half, then turret is41391t auto-aiming so it41391s a fixed turret now"
+NHS,10,R1,2377,M,1,FALSE,TRUE,TRUE,"1,4",4,7,No Card,Driver played very good defense. Got stopped during auto
+CR,10,C1,5338,C,5,FALSE,TRUE,FALSE,,3,,No Card,"Seemed hesitant, shots seemed to be slightly short"
+NS,12,B2,5587,C,,FALSE,TRUE,FALSE,2,2,,No Card,Not good point production and low throughput 
+PREZ,12,B1,5830,M,,FALSE,TRUE,FALSE,,1,4,No Card,Terrible shooter 
+CR,12,B3,4472,F,5,FALSE,TRUE,TRUE,6,1,,No Card,"Wasted 8 seconds in auto, intaking ptoblems, shooting problems"
+MH,12,R2,2537,F,,FALSE,TRUE,TRUE,"6,2",3,,No Card,"had decent second half, but also not impressive/mid"
+MH,12,R1,2186,C,,FALSE,TRUE,FALSE,"4,1",2,,No Card,"very, very slow"
+MH,12,R3,9033,M,,FALSE,TRUE,TRUE,"6,2",2,,No Card,My opps 
+VPC,13,R1,2199,C,5,TRUE,TRUE,TRUE,"1,6",2,,No Card,Double turret w really mid aim
+NS,13,R1,4099,F,3,FALSE,TRUE,FALSE,"6,3",4,2,No Card,"Really good intake and pretty good bps for a single shooter. Easily defendable/knock them around? They have SOTM but i41391s slow, just change their angle"
+NS,13,B2,2377,C,,FALSE,TRUE,FALSE,6,3,,No Card,Not super optimal
+CR,13,B3,1915,M,,FALSE,FALSE,FALSE,,1,1,No Card,It was just dead the whole match
+PREZ,13,B1,116,F,,FALSE,FALSE,TRUE,6,3,,No Card,
+NHS,13,R1,5549,M,2,FALSE,TRUE,TRUE,"1,3,4",3,,No Card,Fast erratic movements. Got caught by enemy defense
+MH,15,R3,2421,M,,FALSE,FALSE,FALSE,,3,1,No Card,Died instantly 
+PREZ,15,B1,9999,C,5,FALSE,TRUE,FALSE,6,2,,No Card,Poor output
+CR,15,B3,1727,M,1,FALSE,TRUE,FALSE,6,4,,No Card,"Slow shooting, low bps"
+NS,15,B2,422,F,5,FALSE,TRUE,TRUE,,2,,No Card,"Intake killed itself genuinely, flimsy defense,  verrrry aggressive driving, browned, "
+NHS,15,R2,5338,C,,FALSE,TRUE,FALSE,"3,6",2,,No Card,Played mostly offense 
+MH,15,R1,9072,F,3,FALSE,TRUE,TRUE,,5,,No Card,~5 second brownout at 20 seconds left—got defended pretty well by 422
+NS,16,R1,5243,C,2,FALSE,TRUE,FALSE,6,2,,No Card,"Intake is chuzz, mid overall, kinda stuck on bump, modified kitbot"
+NS,16,R1,4638,F,,FALSE,FALSE,FALSE,,3,1,No Card,
+CR,16,B3,623,C,,FALSE,TRUE,TRUE,2,3,,No Card,"Slight intake issues, "
+AZ,16,B1,1731,F,3,FALSE,TRUE,FALSE,6,5,,No Card,
+NHS,16,R1,1599,F,,FALSE,TRUE,FALSE,6,1,3,No Card,Did not move on auto 
+DK,16,B2,620,D,,FALSE,FALSE,TRUE,6,2,,No Card,Got stuck on the bumps sometimes and did41391t intake much balls
+PREZ,17,B1,8230,,,FALSE,FALSE,FALSE,,1,,No Card,No show :(
+MH,17,R1,2186,C,,FALSE,TRUE,FALSE,6,1,,No Card,"Bad aim, wasted like 15 seconds of inactive period"
+CR,17,B3,5115,C,3,FALSE,TRUE,FALSE,,3,,No Card,"Very quick cycles , no shots fired"
+NS,17,R1,1915,M,,FALSE,FALSE,FALSE,,1,6,No Card,"Spent the first half of the match trying to go over the bump, could41391t, then browned for the rest of the mstch"
+DK,17,B2,2537,F,5,FALSE,TRUE,TRUE,5,3,,No Card,Did41391t shoot much at all
+NS,18,R1,9072,M,5,FALSE,TRUE,TRUE,"6,2",4,,No Card,Rlly good cycling 
+MH,18,B3,2199,C,3,FALSE,TRUE,FALSE,6,4,,No Card,"Good double turret, solid robot, sometimes has trouble shooting. Later in the game it has poor indexing"
+NS,18,R1,5830,F,3,FALSE,TRUE,FALSE,2,1,7,No Card,Very slow intake
+MH,18,B1,9033,M,,FALSE,TRUE,FALSE,6,1,,No Card,DNP toxic team lol
+NHS,18,R1,116,M,,Nalse,TRUE,TRUE,4,4,,No Card,Problems with intake. Played good defense. 
+DK,18,B2,11415,F,5,FALSE,TRUE,FALSE,5,4,,No Card,
+MH,19,B1,2106,C,3,FALSE,TRUE,FALSE,"1,3,6",4,,No Card,"If we let them play their game, the41391ll just dominate. Gotta steal fuel."
+MH,19,R1,5587,M,,FALSE,5rue,FALSE,,2,,No Card,"Kitbot-like quality, no real strategy "
+NS,19,R1,2377,M,5,FALSE,TRUE,FALSE,"3,1",3,,No Card,"W full field passing, rly slow shooter"
+NS,19,B2,9999,F,5,TRUE,TRUE,FALSE,,1,1,No Card,"Died the undies then died then undied, very minimal cycles, "
+DK,19,B1,422,4,5,FALSE,TRUE,TRUE,"5,3",4,,No Card,Got hit by the trench a lot
+NHS,19,R1,1731,C,5,TRUE,TRUE,TRUE,1,3,4,No Card,Shooter was broken 
+MH,20,B1,888,C,3,FALSE,TRUE,FALSE,"6,2",3,,No Card,"Fast auto but not many balls, just a little bit worse than 4099"
+NS,20,R1,4099,F,"4,3",TRUE,TRUE,FALSE,"6,4,3",5,,No Card,Tends to attempt to steal with almost full hopper
+NHS,20,R1,1727,C,5,FALSE,TRUE,TRUE,"4,6",3,,No Card,Moved slowly. Favored half cycles 
+NS,20,B2,4472,F,5,FALSE,TRUE,FALSE,1,3,1,No Card,"Undied,  hhs with poor intaking, inconsistent shooting"
+DK,20,R1,1599,M,,FALSE,TRUE,TRUE,"5,4",2,,No Card,"Did41391t pick up much balls, but aim was good"
+PREZ,20,B3,4638,M,,FALSE,FALSE,TRUE,,1,,No Card,CLIMBBBB
+CR,21,R1,623,M,,FALSE,TRUE,FALSE,"6,2",3,,No Card,Got in the way of my goats 686
+HR,21,B3,5338,F,"5,6",TRUE,TRUE,FALSE,"2,6,3",3,,No Card,"Good intake and hopper, inconsistent shooting"
+MH,21,B1,5549,C,3,TRUE,TRUE,TRUE,"2,6",3,,No Card,They have vertically extending hopper but intake and shooting worse than at Chesapeake last year
+NHS,21,R1,2421,F,3,FALSE,TRUE,FALSE,6,3,,No Card,Stayed in its own zone for much of match
+NS,21,B2,620,C,,FALSE,TRUE,TRUE,6,2,6,No Card,"Started auto and shot too close to hub, move back. Readie to shoot during inactive. Hhs. BROWNING D."
+DK,21,R1,686,C,5,TRUE,TRUE,TRUE,5,5,,No Card,Very good intake but they kinda missed a lot

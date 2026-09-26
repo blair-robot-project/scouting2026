@@ -24,7 +24,7 @@ default_linear_weights <- data.frame(
     Driver = 10, Died = 0, Card = -20, `Matches Played` = 0
 ) #temp, remove later
 
-addResourcePath("images_d", "data/gal/images")
+addResourcePath("images_d", "data/vaale1/images")
 
 server <- function(input, output, session) {
     raw <- reactiveVal()
@@ -37,7 +37,7 @@ server <- function(input, output, session) {
     teams_selected <- reactiveVal(NULL)
     summary_stat <- reactiveVal(NULL)
     metric_selected <- reactiveVal("pRidge")
-    event_selected <- reactiveVal("Galileo")
+    event_selected <- reactiveVal("CRI")
     
     user_logged_in <- reactiveVal(rstudioapi::isAvailable())
     correct_password = "0322"
@@ -52,7 +52,7 @@ server <- function(input, output, session) {
         removeResourcePath("images_d")
         addResourcePath("images_d", paste0("data/", event, "/images"))
     }
-    load_event_data("test_data")
+    load_event_data("vaale1")
     
     #UPDATE PICKERS
     observe({
@@ -78,6 +78,7 @@ server <- function(input, output, session) {
         joh = "Johnson",
         mil = "Milstein",
         new = "Newton", 
+        vaale1 = "CRI",
         all_data = "All Data"
     )
     

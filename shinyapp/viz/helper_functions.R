@@ -288,9 +288,10 @@ pridge_calculation_offline <- function(event_key) {
         auto_fuel, tele_fuel, 
         auto_fuel_opr, tele_fuel_opr,
         auto_fuel_pre_epa = statbotics_data$auto_fuel_pre_epa,
-        tele_fuel_pre_epa = statbotics_data$tele_fuel_pre_epa,
-        auto_fuel_recent_epa = statbotics_data$auto_fuel_recent_epa,
-        tele_fuel_recent_epa = statbotics_data$tele_fuel_recent_epa)
+        tele_fuel_pre_epa = statbotics_data$tele_fuel_pre_epa#,
+        #auto_fuel_recent_epa = statbotics_data$auto_fuel_recent_epa,
+        #tele_fuel_recent_epa = statbotics_data$tele_fuel_recent_epa
+        )
     write.csv(
         priors_df, 
         paste0("shinyapp/data/", event_key, "/pridge.csv"), row.names = FALSE)
@@ -338,12 +339,12 @@ recent_team_epas <- function(event_key, schedule) {
             sb = list(tryCatch(
                 team_sb(team, match = match_key),
                 error = function(e) NULL
-            )),
-            auto_fuel_recent_epa = if(!is.null(sb)) sb$epa$breakdown$auto_fuel else NA,
-            total_fuel_recent_epa = if(!is.null(sb)) sb$epa$breakdown$total_fuel else NA,
-            tele_fuel_recent_epa = total_fuel_recent_epa - auto_fuel_recent_epa
-        ) |>
-        select(team, match_key, auto_fuel_recent_epa, tele_fuel_recent_epa)
+            ))#,
+            #auto_fuel_recent_epa = if(!is.null(sb)) sb$epa$breakdown$auto_fuel,# else NA,
+            #total_fuel_recent_epa = if(!is.null(sb)) sb$epa$breakdown$total_fuel#,# else NA,
+            #tele_fuel_recent_epa = total_fuel_recent_epa - auto_fuel_recent_epa
+        ) #|>
+        #select(team, match_key, auto_fuel_recent_epa, tele_fuel_recent_epa)
     
     return(last_instance)
 }
@@ -370,11 +371,11 @@ pridge_calculation_online <- function(event_key, recalc_pre_event_epa = FALSE){
             B3 = as.numeric(gsub("frc", "", B3)),
         )
     
-    blue_auto_fuel <- sapply(matches[['blue_hubScore']], \(x) x$autoCount)
-    blue_tele_fuel <- sapply(matches[['blue_hubScore']], \(x) x$teleopCount)
+    blue_auto_fuel <- unlist(sapply(matches[['blue_hubScore']], \(x) x$autoCount))
+    blue_tele_fuel <- unlist(sapply(matches[['blue_hubScore']], \(x) x$teleopCount))
     
-    red_auto_fuel <- sapply(matches[['red_hubScore']], \(x) x$autoCount)
-    red_tele_fuel <- sapply(matches[['red_hubScore']], \(x) x$teleopCount)
+    red_auto_fuel <- unlist(sapply(matches[['red_hubScore']], \(x) x$autoCount))
+    red_tele_fuel <- unlist(sapply(matches[['red_hubScore']], \(x) x$teleopCount))
     
     extracted_data <- data.frame(
         match = matches$match_number, 
@@ -499,7 +500,7 @@ summary_stats <- function(raw, pridge, teams = NULL, metric = "pridge") {
             `Auto Bump` = sum(as.logical(auto_bump), na.rm = TRUE),
             `Tele Trench` = sum(as.logical(teleop_trench), na.rm = TRUE),
             `Tele Bump` = sum(as.logical(teleop_bump), na.rm = TRUE),
-            Driver = mean(driver_rating, na.rm = TRUE),
+            Driver = mean(as.numeric(driver_rating), na.rm = TRUE),
             Died = sum(grep("1", problems), na.rm = TRUE),
             Card = sum(card != 'No Card', na.rm = TRUE)
         ) |>
